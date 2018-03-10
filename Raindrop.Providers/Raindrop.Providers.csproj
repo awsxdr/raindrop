@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Raindrop.Core\Raindrop.Core.csproj" />
+    <ProjectReference Include="..\Raindrop.Domain\Raindrop.Domain.csproj" />
   </ItemGroup>
 
 </Project>
