@@ -5,8 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CqrsLite" Version="0.19.0" />
-    <PackageReference Include="LiteDB" Version="4.1.1" />
+    <PackageReference Include="CqrsLite" Version="0.21.0" />
+    <PackageReference Include="LiteDB" Version="4.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Raindrop.Configuration\Raindrop.Configuration.csproj" />
+    <ProjectReference Include="..\Raindrop.Domain\Raindrop.Domain.csproj" />
   </ItemGroup>
 
 </Project>

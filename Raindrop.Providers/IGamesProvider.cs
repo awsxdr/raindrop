@@ -12,6 +12,6 @@
 
         void ArchiveGame(GameIdentifier gameId);
 
-        void AddGame(Game game);
+        GameIdentifier AddGame(NewGame game);
     }
 }

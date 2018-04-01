@@ -2,32 +2,47 @@
 {
     using System;
 
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+
+    using Raindrop.Domain.Objects;
+    using Raindrop.Providers;
+    using Raindrop.Utility;
 
     [Produces("application/json")]
     [Route("api/Games")]
     public class GamesController : Controller
     {
-        public GamesController()
+        private readonly IGamesProvider _gamesProvider;
 
-        [HttpGet]
-        [Route("/")]
-        public HttpResponse Get()
+        public GamesController(IGamesProvider gamesProvider)
         {
-            throw new NotImplementedException();
+            _gamesProvider = gamesProvider;
         }
 
         [HttpGet]
-        [Route("/{id}")]
-        public HttpResponse Get(string id)
-        {
-            throw new NotImplementedException();
-        }
+        [Route("")]
+        public IActionResult Get() =>
+            _gamesProvider.GetGames()
+            .Map(Ok);
+
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult Get(string id) =>
+            id
+            .Map(GameIdentifier.Parse)
+            .Map(_gamesProvider.GetGame)
+            .Map(Ok);
+
+        [HttpPost]
+        [Route("")]
+        public IActionResult Post([FromBody] NewGame game) =>
+            game
+            .Map(_gamesProvider.AddGame)
+            .Map(Ok);
 
         [HttpPatch]
-        [Route("/{id}")]
-        public HttpResponse SetIsRunning(string id, [FromQuery(Name = "r")] bool isRunning)
+        [Route("{id}")]
+        public IActionResult SetIsRunning(string id, [FromQuery(Name = "r")] bool isRunning)
         {
             throw new NotImplementedException();
         }

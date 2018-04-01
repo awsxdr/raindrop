@@ -1,24 +1,28 @@
 ﻿namespace Raindrop.Domain.CommandHandlers
 {
+    using System.Threading.Tasks;
     using AggregateRoots;
 
     using Commands;
+
+    using CQRSlite.Commands;
+    using CQRSlite.Domain;
+    using CQRSlite.Messages;
+
     using Raindrop.Utility;
-    using SimpleCqrs.Commanding;
-    using SimpleCqrs.Domain;
 
-    public class IncrementSideScoreCommandHandler : CommandHandler<IncrementSideScoreCommand>
+    public class IncrementSideScoreCommandHandler : ICommandHandler<IncrementSideScoreCommand>
     {
-        private readonly IDomainRepository _repository;
+        private readonly ISession _session;
 
-        public IncrementSideScoreCommandHandler(IDomainRepository repository)
+        public IncrementSideScoreCommandHandler(ISession session)
         {
-            _repository = repository;
+            _session = session;
         }
 
-        public override void Handle(IncrementSideScoreCommand command) =>
-            _repository.GetExistingById<Side>(command.SideId)
-            .Map(x => x.SetScore(x.Score + command.IncrementAmount))
-            .Tee(_repository.Save);
+        async Task IHandler<IncrementSideScoreCommand>.Handle(IncrementSideScoreCommand message) =>
+            (await _session.Get<Side>(message.SideId))
+            .Map(x => x.SetScore(x.Score + message.IncrementAmount))
+            .Tee(_ => _session.Commit());
     }
 }

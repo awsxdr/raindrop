@@ -5,13 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CqrsLite" Version="0.21.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Raindrop.Core\Raindrop.Core.csproj" />
-    <ProjectReference Include="..\Raindrop.Data\Raindrop.Data.csproj" />
-    <ProjectReference Include="..\Raindrop.Domain\Raindrop.Domain.csproj" />
   </ItemGroup>
 
 </Project>

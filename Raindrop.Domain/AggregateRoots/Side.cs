@@ -6,7 +6,7 @@
 
     using Objects;
 
-    using SimpleCqrs.Domain;
+    using CQRSlite.Domain;
 
     using Utility;
 
@@ -45,7 +45,7 @@
 
         public Side SetScore(int score) =>
             CloneWithChanges(score: score)
-            .Tee(x => Apply(new SideScoreChangedEvent(SideId, score)));
+            .Tee(x => ApplyChange(new SideScoreChangedEvent(SideId, score)));
 
         private Side CloneWithChanges(
             Team team = null,

@@ -1,6 +1,6 @@
 ﻿namespace Raindrop.Domain.Objects
 {
-    using SimpleCqrs.Domain;
+    using CQRSlite.Domain;
 
     public class Team : AggregateRoot
     {

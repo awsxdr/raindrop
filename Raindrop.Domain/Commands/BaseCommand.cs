@@ -2,7 +2,7 @@
 {
     using System;
 
-    using SimpleCqrs.Commanding;
+    using CQRSlite.Commands;
 
     public abstract class BaseCommand : ICommand
     {

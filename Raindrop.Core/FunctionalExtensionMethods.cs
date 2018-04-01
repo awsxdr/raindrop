@@ -21,6 +21,13 @@
             return @this;
         }
 
+        public static TOut Use<TDisposable, TOut>(this TDisposable @this, Func<TDisposable, TOut> func)
+            where TDisposable : IDisposable
+        {
+            using (@this)
+                return func(@this);
+        }
+
         public static IEnumerable<TInOut> ForEach<TInOut>(this IEnumerable<TInOut> @this, Action<TInOut> func) =>
             @this.Select(x => x.Tee(func));
 

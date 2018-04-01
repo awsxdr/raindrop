@@ -5,11 +5,43 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SimpleCqrs" Version="1.0.0" />
+    <Compile Remove="CommandHandlers\**" />
+    <Compile Remove="Commands\**" />
+    <Compile Remove="Events\**" />
+    <EmbeddedResource Remove="CommandHandlers\**" />
+    <EmbeddedResource Remove="Commands\**" />
+    <EmbeddedResource Remove="Events\**" />
+    <None Remove="CommandHandlers\**" />
+    <None Remove="Commands\**" />
+    <None Remove="Events\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="CommandHandlers\IncrementSideScoreCommandHandler.cs" />
+    <Compile Include="CommandHandlers\SessionExtensionMethods.cs" />
+    <Compile Include="CommandHandlers\Users\UserCommandHandler.cs" />
+    <Compile Include="Commands\BaseCommand.cs" />
+    <Compile Include="Commands\IncrementSideScoreCommand.cs" />
+    <Compile Include="Commands\Users\CreateUserCommand.cs" />
+    <Compile Include="Commands\Users\SetUserPasswordHashCommand.cs" />
+    <Compile Include="Events\BaseEvent.cs" />
+    <Compile Include="Events\SideScoreChangedEvent.cs" />
+    <Compile Include="Events\Users\UserPasswordHashSetEvent.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiteDB" Version="4.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Raindrop.Configuration\Raindrop.Configuration.csproj" />
     <ProjectReference Include="..\Raindrop.Core\Raindrop.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CQRSlite">
+      <HintPath>..\Libraries\CQRSlite.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
