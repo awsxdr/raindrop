@@ -3,9 +3,16 @@
     using System.Collections.Generic;
 
     using Raindrop.Domain.Objects;
+    using Raindrop.Domain.Repositories;
 
     public class GamesProvider : IGamesProvider
     {
+        public GamesProvider(
+            IGameRepository gameRepository)
+        {
+
+        }
+
         public GameIdentifier AddGame(NewGame game)
         {
             throw new System.NotImplementedException();

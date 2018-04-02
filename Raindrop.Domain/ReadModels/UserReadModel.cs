@@ -1,14 +1,11 @@
-﻿namespace Raindrop.Domain.Repositories
+﻿namespace Raindrop.Domain.ReadModels
 {
     using System;
-    using Raindrop.Data;
 
-    public class UserReadModel
+    public class UserReadModel : BaseReadModel
     {
-        public Guid Id { get; set; }
-
-        public string Username { get; set; }
-        public string PasswordHash { get; set;  }
+        public string Username { get; private set; }
+        public string PasswordHash { get; private set;  }
 
         private UserReadModel() { }
 
@@ -17,8 +14,8 @@
         { }
 
         public UserReadModel(Guid id, string username, string passwordHash)
+            : base(id)
         {
-            Id = id;
             Username = username;
             PasswordHash = passwordHash;
         }

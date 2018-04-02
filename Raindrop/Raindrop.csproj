@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
   </ItemGroup>
@@ -26,6 +27,12 @@
     <ProjectReference Include="..\Raindrop.Configuration\Raindrop.Configuration.csproj" />
     <ProjectReference Include="..\Raindrop.Core\Raindrop.Core.csproj" />
     <ProjectReference Include="..\Raindrop.Providers\Raindrop.Providers.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CQRSlite">
+      <HintPath>..\Libraries\CQRSlite.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

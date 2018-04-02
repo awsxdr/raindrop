@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Raindrop.Domain.Commands.Users
+﻿namespace Raindrop.Domain.Commands.Users
 {
+    using System;
+
     public class SetUserPasswordHashCommand : BaseCommand
     {
         public Guid UserId { get; }

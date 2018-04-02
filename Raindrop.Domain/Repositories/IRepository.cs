@@ -15,5 +15,6 @@
         IReadOnlyCollection<TItem> Where(Expression<Func<TItem, bool>> predecate);
         TItem First(Expression<Func<TItem, bool>> predecate);
         void Update(TItem item);
+        void Upsert(TItem item);
     }
 }

@@ -7,6 +7,7 @@
 
     using Microsoft.AspNetCore.Identity;
 
+    using Raindrop.Domain.ReadModels;
     using Raindrop.Domain.Repositories;
     using Raindrop.Utility;
 

@@ -1,4 +1,4 @@
-﻿namespace Raindrop.Data
+﻿namespace Raindrop.Domain.Database
 {
     using System;
 

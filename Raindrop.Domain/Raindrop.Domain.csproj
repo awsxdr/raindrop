@@ -17,15 +17,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="CommandHandlers\GameCommandHandler.cs" />
     <Compile Include="CommandHandlers\IncrementSideScoreCommandHandler.cs" />
     <Compile Include="CommandHandlers\SessionExtensionMethods.cs" />
-    <Compile Include="CommandHandlers\Users\UserCommandHandler.cs" />
+    <Compile Include="CommandHandlers\TeamCommandHandler.cs" />
+    <Compile Include="CommandHandlers\UserCommandHandler.cs" />
     <Compile Include="Commands\BaseCommand.cs" />
+    <Compile Include="Commands\Games\CreateGameCommand.cs" />
     <Compile Include="Commands\IncrementSideScoreCommand.cs" />
+    <Compile Include="Commands\Teams\CreateTeamCommand.cs" />
     <Compile Include="Commands\Users\CreateUserCommand.cs" />
     <Compile Include="Commands\Users\SetUserPasswordHashCommand.cs" />
     <Compile Include="Events\BaseEvent.cs" />
+    <Compile Include="Events\DatabaseEventStore.cs" />
+    <Compile Include="Events\EventItem.cs" />
     <Compile Include="Events\SideScoreChangedEvent.cs" />
+    <Compile Include="Events\Teams\TeamCreatedEvent.cs" />
     <Compile Include="Events\Users\UserPasswordHashSetEvent.cs" />
   </ItemGroup>
 

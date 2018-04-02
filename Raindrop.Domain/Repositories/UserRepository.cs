@@ -5,33 +5,21 @@
     using System.Linq;
 
     using Raindrop.Configuration;
-    using Raindrop.Data;
+    using Raindrop.Domain.Database;
+    using Raindrop.Domain.ReadModels;
 
     public class UserRepository : BaseRepository<UserReadModel, Guid>, IUserRepository
     {
-        private readonly UserRepositoryConfiguration _configuration;
+        private readonly RepositoryConfiguration _configuration;
 
         protected override string DatabaseFileName => _configuration.UserDatabaseFile;
-
-        private IDatabaseItemCollection<UserReadModel> Items => _database.Value.GetItemCollection<UserReadModel>();
 
         public UserRepository(
             Func<string, IDatabase> databaseFactory,
             IConfigurationProvider configurationProvider)
             : base(databaseFactory)
         {
-            _configuration = configurationProvider.GetConfiguration<UserRepositoryConfiguration>();
-        }
-
-        [ConfigurationName("userRepository")]
-        private class UserRepositoryConfiguration
-        {
-            public string UserDatabaseFile { get; }
-
-            public UserRepositoryConfiguration(string userDatabaseFile)
-            {
-                UserDatabaseFile = userDatabaseFile;
-            }
+            _configuration = configurationProvider.GetConfiguration<RepositoryConfiguration>();
         }
 
         public IReadOnlyCollection<UserReadModel> GetAll() =>

@@ -1,4 +1,4 @@
-﻿namespace Raindrop.Data
+﻿namespace Raindrop.Domain.Database
 {
     using System;
     using System.Collections.Generic;
@@ -11,5 +11,6 @@
         IEnumerable<TItem> Where(Expression<Func<TItem, bool>> predicate);
         IEnumerable<TItem> GetAll();
         void Update(TItem item);
+        void Upsert(TItem item);
     }
 }

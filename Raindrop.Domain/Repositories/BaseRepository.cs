@@ -1,11 +1,11 @@
-﻿namespace Raindrop.Data
+﻿namespace Raindrop.Domain.Repositories
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
 
-    using Raindrop.Domain.Repositories;
+    using Raindrop.Domain.Database;
     using Raindrop.Utility;
 
     public abstract class BaseRepository<TItem, TKey> : IRepository<TItem, TKey>
@@ -16,7 +16,7 @@
 
         protected abstract string DatabaseFileName { get; }
 
-        private IDatabaseItemCollection<TItem> Items => 
+        protected IDatabaseItemCollection<TItem> Items => 
             _database.Value.GetItemCollection<TItem>();
 
         public BaseRepository(
@@ -50,6 +50,10 @@
         public void Update(TItem item) =>
             item
             .Tee(Items.Update);
+
+        public void Upsert(TItem item) =>
+            item
+            .Tee(Items.Upsert);
 
         private Func<IDataItem<TItem, TKey>, bool> KeysMatch(TKey key) => item =>
             item.Key.Equals(key);

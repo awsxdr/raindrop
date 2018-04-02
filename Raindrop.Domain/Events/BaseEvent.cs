@@ -5,8 +5,8 @@
 
     public abstract class BaseEvent : IEvent
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public int Version { get; set; }
-        public DateTimeOffset TimeStamp { get; set; }
+        public DateTimeOffset TimeStamp { get; set; } = DateTimeOffset.Now;
     }
 }

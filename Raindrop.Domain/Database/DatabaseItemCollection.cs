@@ -1,4 +1,4 @@
-﻿namespace Raindrop.Data
+﻿namespace Raindrop.Domain.Database
 {
     using System;
     using System.Collections.Generic;
@@ -29,5 +29,8 @@
 
         public void Update(TItem item) =>
             _collection.Update(item);
+
+        public void Upsert(TItem item) =>
+            _collection.Upsert(item);
     }
 }

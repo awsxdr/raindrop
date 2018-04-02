@@ -1,5 +1,6 @@
 ﻿{
-  "userRepository": {
-    "UserDatabaseFile": "users.db"
+  "repositories": {
+    "UserDatabaseFile": "Data/users.db",
+    "GeneralDatabaseFile": "Data/data.db"
   }
 }

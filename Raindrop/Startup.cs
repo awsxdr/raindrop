@@ -53,6 +53,8 @@ namespace Raindrop
                 options.SlidingExpiration = true;
             });
 
+            
+
             services.AddProviders();
 
             services.AddMvc();
