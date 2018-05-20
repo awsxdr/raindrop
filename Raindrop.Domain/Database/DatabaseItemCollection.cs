@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Linq.Expressions;
 
     using LiteDB;
@@ -18,19 +19,22 @@
         public void Add(TItem item) =>
             _collection.Insert(item);
 
-        public bool Any(Func<TItem, bool> predicate) =>
-            _collection.Exists(x => predicate(x));
-
-        public IEnumerable<TItem> Where(Expression<Func<TItem, bool>> predicate) =>
-            _collection.Find(predicate);
+        public bool Any(Expression<Func<TItem, bool>> predicate) =>
+            _collection.Exists(predicate);
 
         public IEnumerable<TItem> GetAll() =>
             _collection.FindAll();
+
+        public TItem Single(Expression<Func<TItem, bool>> predicate) =>
+            _collection.Find(predicate, 0, 1).Single();
 
         public void Update(TItem item) =>
             _collection.Update(item);
 
         public void Upsert(TItem item) =>
             _collection.Upsert(item);
+
+        public IEnumerable<TItem> Where(Expression<Func<TItem, bool>> predicate) =>
+            _collection.Find(predicate);
     }
 }

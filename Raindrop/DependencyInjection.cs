@@ -1,6 +1,7 @@
 ﻿namespace Raindrop
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     using CQRSlite.Caching;
@@ -9,18 +10,19 @@
     using CQRSlite.Events;
     using CQRSlite.Routing;
 
+    using Configuration;
+    using Domain.Database;
+    using Domain.ReadModel.EventHandlers;
+    using Domain.ReadModel.Events;
+    using Domain.ReadModel.Repositories;
+    using Domain.WriteModel.CommandHandlers;
+    using Domain.WriteModel.Commands.Teams;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.DependencyInjection;
 
-    using Raindrop.Configuration;
-    using Raindrop.Domain.CommandHandlers;
-    using Raindrop.Domain.Commands.Teams;
-    using Raindrop.Domain.Database;
-    using Raindrop.Domain.Events;
-    using Raindrop.Domain.Repositories;
-    using Raindrop.Domain.Requests.Teams;
-    using Raindrop.Providers;
-    using Raindrop.Utility;
+    using Providers;
+    using Requests.Teams;
+    using Utility;
 
     public static class DependencyInjection
     {
@@ -28,7 +30,6 @@
         {
             services
                 .AddSingleton<IGamesProvider, GamesProvider>()
-                .AddTransient<IUserRepository, UserRepository>()
                 .AddSingleton<Func<string, IDatabase>>(sp => name => new Database(name, sp.GetService<IDatabaseItemCollectionFactory>()))
                 .AddTransient<IDatabaseItemCollectionFactory, DatabaseItemCollectionFactory>()
                 .AddSingleton<IConfigurationProvider, ConfigurationProvider>()
@@ -41,26 +42,57 @@
                 .AddSingleton<IEventPublisher>(x => x.GetService<Router>())
                 .AddSingleton<IHandlerRegistrar>(x => x.GetService<Router>())
                 .AddSingleton<IEventStore, DatabaseEventStore>()
-                .AddSingleton<IEventRepository, EventRepository>()
                 .AddSingleton<ICache, MemoryCache>()
                 .AddScoped<IRepository>(y => new CacheRepository(new Repository(y.GetService<IEventStore>()), y.GetService<IEventStore>(), y.GetService<ICache>()))
                 .AddScoped<CQRSlite.Domain.ISession, Session>();
 
-            bool IsCommandHandler(Type type) =>
-                type.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICommandHandler<>));
+            Func<Type, bool> IsOfGenericType(Type genericType) => type =>
+                GetGenericInterfaces(type, genericType).Any();
+
+            IEnumerable<Type> GetGenericInterfaces(Type type, Type genericType) =>
+                type.GetInterfaces().Where(x => x.IsGenericType && x.GetGenericTypeDefinition() == genericType);
+
+            Type CreateRepositoryType(Type type, Type repositoryType) =>
+                GetGenericInterfaces(type, repositoryType)
+                .Single()
+                ?.Map(x => repositoryType.MakeGenericType(x.GetGenericArguments()));
+
+            typeof(IReadOnlyRepository<>)
+                .Assembly
+                .GetTypes()
+                .Where(x => x.IsClass && !x.IsAbstract)
+                .Select(x => new {Type = x, Interface = GetGenericInterfaces(x, typeof(IReadOnlyRepository<>)).SingleOrDefault()})
+                .Where(x => x.Interface != null)
+                .Select(x => new
+                {
+                    x.Type,
+                    ReadOnlyInterface = CreateRepositoryType(x.Type, typeof(IReadOnlyRepository<>)),
+                    Interface = CreateRepositoryType(x.Type, typeof(IRepository<>))
+                })
+                .ForEach(x => services.AddSingleton(x.ReadOnlyInterface, x.Type))
+                .ForEach(x => services.AddSingleton(x.Interface, x.Type))
+                .Evaluate();
 
             typeof(UserCommandHandler)
                 .Assembly
                 .GetTypes()
-                .Where(IsCommandHandler)
+                .Where(IsOfGenericType(typeof(ICommandHandler<>)))
                 .Where(x => x != typeof(ICommandHandler<>))
+                .ForEach(services.AddTransient)
+                .Evaluate();
+
+            typeof(UserEventHandler)
+                .Assembly
+                .GetTypes()
+                .Where(IsOfGenericType(typeof(IEventHandler<>)))
+                .Where(x => x != typeof(IEventHandler<>))
                 .ForEach(services.AddTransient)
                 .Evaluate();
 
             services.BuildServiceProvider();
 
             new RouteRegistrar(new RouteProvider(services.BuildServiceProvider()))
-                .RegisterInAssemblyOf(typeof(Domain.CommandHandlers.UserCommandHandler));
+                .RegisterInAssemblyOf(typeof(UserCommandHandler));
 
             return services;
         }

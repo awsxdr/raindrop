@@ -1,36 +1,38 @@
 ﻿namespace Raindrop.Providers
 {
+    using System;
     using System.Collections.Generic;
 
-    using Raindrop.Domain.Objects;
-    using Raindrop.Domain.Repositories;
+    using Domain.ReadModel.Repositories;
+    using Domain.Objects;
+    using Domain.ReadModel.Models;
 
     public class GamesProvider : IGamesProvider
     {
         public GamesProvider(
-            IGameRepository gameRepository)
+            IRepository<GameReadModel> gameRepository)
         {
 
         }
 
         public GameIdentifier AddGame(NewGame game)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void ArchiveGame(GameIdentifier gameId)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public Game GetGame(GameIdentifier gameId)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public IReadOnlyCollection<Game> GetGames()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,13 +1,14 @@
 ﻿namespace Raindrop.Controllers
 {
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
-    using Raindrop.Domain.AggregateRoots;
-    using Raindrop.Identity;
-    using Raindrop.Models;
+    using Identity;
+
+    using Models;
 
     [AllowAnonymous]
     public class AccountController : Controller
@@ -50,7 +51,7 @@
         [HttpGet]
         public async Task<IActionResult> Setup()
         {
-            var result = await _userManager.CreateAsync(
+            await _userManager.CreateAsync(
                 new UserAccount("admin", null),
                 "z4&%B1rY@.");
 

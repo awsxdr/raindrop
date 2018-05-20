@@ -5,20 +5,20 @@
     using System.Threading;
     using System.Threading.Tasks;
 
+    using Domain.ReadModel.Models;
+    using Domain.ReadModel.Repositories;
+
     using Microsoft.AspNetCore.Identity;
 
-    using Raindrop.Domain.ReadModels;
-    using Raindrop.Domain.Repositories;
-    using Raindrop.Utility;
+    using Utility;
 
     public class UserAccountStore :
-        IUserStore<UserAccount>, 
         IUserPasswordStore<UserAccount>,
         IUserEmailStore<UserAccount>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRepository<UserReadModel> _userRepository;
 
-        public UserAccountStore(IUserRepository userRepository)
+        public UserAccountStore(IRepository<UserReadModel> userRepository)
         {
             _userRepository = userRepository;
         }
@@ -33,7 +33,7 @@
 
         public Task<IdentityResult> DeleteAsync(UserAccount user, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void Dispose()
@@ -47,7 +47,7 @@
 
         public Task<UserAccount> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public Task<UserAccount> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken) =>
@@ -101,7 +101,7 @@
 
         public Task SetUserNameAsync(UserAccount user, string userName, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public Task<IdentityResult> UpdateAsync(UserAccount user, CancellationToken cancellationToken) =>

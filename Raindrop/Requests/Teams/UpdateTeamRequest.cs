@@ -2,13 +2,11 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class CreateTeamRequest
+    public class UpdateTeamRequest
     {
         [StringLength(int.MaxValue, MinimumLength = 1)]
         public string Name { get; set; }
 
-        public CreateTeamRequest()
-        {
-        }
+        public string ImageData { get; set; }
     }
 }

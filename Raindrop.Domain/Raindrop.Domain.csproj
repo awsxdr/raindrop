@@ -5,35 +5,43 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="CommandHandlers\**" />
-    <Compile Remove="Commands\**" />
-    <Compile Remove="Events\**" />
-    <EmbeddedResource Remove="CommandHandlers\**" />
-    <EmbeddedResource Remove="Commands\**" />
-    <EmbeddedResource Remove="Events\**" />
-    <None Remove="CommandHandlers\**" />
-    <None Remove="Commands\**" />
-    <None Remove="Events\**" />
+    <Compile Remove="WriteModel\CommandHandlers\**" />
+    <Compile Remove="WriteModel\Commands\**" />
+    <Compile Remove="ReadModel\Events\**" />
+    <EmbeddedResource Remove="WriteModel\CommandHandlers\**" />
+    <EmbeddedResource Remove="WriteModel\Commands\**" />
+    <EmbeddedResource Remove="ReadModel\Events\**" />
+    <None Remove="WriteModel\CommandHandlers\**" />
+    <None Remove="WriteModel\Commands\**" />
+    <None Remove="ReadModel\Events\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="CommandHandlers\GameCommandHandler.cs" />
-    <Compile Include="CommandHandlers\IncrementSideScoreCommandHandler.cs" />
-    <Compile Include="CommandHandlers\SessionExtensionMethods.cs" />
-    <Compile Include="CommandHandlers\TeamCommandHandler.cs" />
-    <Compile Include="CommandHandlers\UserCommandHandler.cs" />
-    <Compile Include="Commands\BaseCommand.cs" />
-    <Compile Include="Commands\Games\CreateGameCommand.cs" />
-    <Compile Include="Commands\IncrementSideScoreCommand.cs" />
-    <Compile Include="Commands\Teams\CreateTeamCommand.cs" />
-    <Compile Include="Commands\Users\CreateUserCommand.cs" />
-    <Compile Include="Commands\Users\SetUserPasswordHashCommand.cs" />
-    <Compile Include="Events\BaseEvent.cs" />
-    <Compile Include="Events\DatabaseEventStore.cs" />
-    <Compile Include="Events\EventItem.cs" />
-    <Compile Include="Events\SideScoreChangedEvent.cs" />
-    <Compile Include="Events\Teams\TeamCreatedEvent.cs" />
-    <Compile Include="Events\Users\UserPasswordHashSetEvent.cs" />
+    <Compile Include="ReadModel\Events\BaseEvent.cs" />
+    <Compile Include="ReadModel\Events\DatabaseEventStore.cs" />
+    <Compile Include="ReadModel\Events\EventItem.cs" />
+    <Compile Include="ReadModel\Events\SideScoreChangedEvent.cs" />
+    <Compile Include="ReadModel\Events\Teams\TeamArchivedEvent.cs" />
+    <Compile Include="ReadModel\Events\Teams\TeamCreatedEvent.cs" />
+    <Compile Include="ReadModel\Events\Teams\TeamImageChangedEvent.cs" />
+    <Compile Include="ReadModel\Events\Teams\TeamNameChangedEvent.cs" />
+    <Compile Include="ReadModel\Events\Teams\TeamUnarchivedEvent.cs" />
+    <Compile Include="ReadModel\Events\Users\UserPasswordHashSetEvent.cs" />
+    <Compile Include="WriteModel\CommandHandlers\GameCommandHandler.cs" />
+    <Compile Include="WriteModel\CommandHandlers\IncrementSideScoreCommandHandler.cs" />
+    <Compile Include="WriteModel\CommandHandlers\SessionExtensionMethods.cs" />
+    <Compile Include="WriteModel\CommandHandlers\TeamCommandHandler.cs" />
+    <Compile Include="WriteModel\CommandHandlers\UserCommandHandler.cs" />
+    <Compile Include="WriteModel\Commands\BaseCommand.cs" />
+    <Compile Include="WriteModel\Commands\Games\CreateGameCommand.cs" />
+    <Compile Include="WriteModel\Commands\IncrementSideScoreCommand.cs" />
+    <Compile Include="WriteModel\Commands\Teams\CreateTeamCommand.cs" />
+    <Compile Include="WriteModel\Commands\Teams\ArchiveTeamCommand.cs" />
+    <Compile Include="WriteModel\Commands\Teams\RenameTeamCommand.cs" />
+    <Compile Include="WriteModel\Commands\Teams\SetTeamImageCommand.cs" />
+    <Compile Include="WriteModel\Commands\Teams\UnarchiveTeamCommand.cs" />
+    <Compile Include="WriteModel\Commands\Users\CreateUserCommand.cs" />
+    <Compile Include="WriteModel\Commands\Users\SetUserPasswordHashCommand.cs" />
   </ItemGroup>
 
   <ItemGroup>

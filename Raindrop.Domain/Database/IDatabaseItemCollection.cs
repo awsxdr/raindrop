@@ -7,10 +7,11 @@
     public interface IDatabaseItemCollection<TItem>
     {
         void Add(TItem item);
-        bool Any(Func<TItem, bool> predicate);
-        IEnumerable<TItem> Where(Expression<Func<TItem, bool>> predicate);
+        bool Any(Expression<Func<TItem, bool>> predicate);
         IEnumerable<TItem> GetAll();
+        TItem Single(Expression<Func<TItem, bool>> predicate);
         void Update(TItem item);
         void Upsert(TItem item);
+        IEnumerable<TItem> Where(Expression<Func<TItem, bool>> predicate);
     }
 }

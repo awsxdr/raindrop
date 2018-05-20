@@ -9,8 +9,7 @@ namespace Raindrop
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
-    using Raindrop.Domain.AggregateRoots;
-    using Raindrop.Identity;
+    using Identity;
 
     public class Startup
     {
