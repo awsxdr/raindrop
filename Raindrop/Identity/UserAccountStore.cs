@@ -45,16 +45,18 @@
             throw new NotImplementedException();
         }
 
-        public Task<UserAccount> FindByIdAsync(string userId, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+        public Task<UserAccount> FindByIdAsync(string userId, CancellationToken cancellationToken) =>
+            _userRepository
+                .Where(x => x.Id.ToString().Equals(userId, StringComparison.OrdinalIgnoreCase))
+                .SingleOrDefault()
+                .Map(UserAccountFromReadModel)
+                .Map(Task.FromResult);
 
         public Task<UserAccount> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken) =>
             _userRepository
                 .Where(x => NormalizeUserName(x.Username).Equals(normalizedUserName, StringComparison.Ordinal))
                 .SingleOrDefault()
-                .Map(UserAccoutFromReadModel)
+                .Map(UserAccountFromReadModel)
                 .Map(Task.FromResult);
 
         public Task<string> GetEmailAsync(UserAccount user, CancellationToken cancellationToken) =>
@@ -114,7 +116,7 @@
         private string NormalizeUserName(string username) =>
             username.ToUpperInvariant();
 
-        private static UserAccount UserAccoutFromReadModel(UserReadModel readModel) =>
+        private static UserAccount UserAccountFromReadModel(UserReadModel readModel) =>
             readModel
             ?.Map(x => new UserAccount(x.Username, x.PasswordHash));
 

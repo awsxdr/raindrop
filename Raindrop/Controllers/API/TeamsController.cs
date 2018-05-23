@@ -2,13 +2,10 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using AutoMapper;
-
     using CQRSlite.Commands;
-    using Domain.Commands;
     using Domain.ReadModel.Models;
     using Domain.ReadModel.Repositories;
     using Domain.WriteModel.Commands.Teams;

@@ -24,6 +24,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\components\Team.tsx" />
+    <None Remove="ClientApp\components\Teams.tsx" />
+    <None Remove="ClientApp\store\Team.ts" />
+    <None Remove="ClientApp\store\Teams.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Raindrop.Configuration\Raindrop.Configuration.csproj" />
     <ProjectReference Include="..\Raindrop.Core\Raindrop.Core.csproj" />
     <ProjectReference Include="..\Raindrop.Providers\Raindrop.Providers.csproj" />
@@ -33,6 +40,13 @@
     <Reference Include="CQRSlite">
       <HintPath>..\Libraries\CQRSlite.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\components\Team.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Teams.tsx" />
+    <TypeScriptCompile Include="ClientApp\store\Team.ts" />
+    <TypeScriptCompile Include="ClientApp\store\Teams.ts" />
   </ItemGroup>
 
   <ItemGroup>
